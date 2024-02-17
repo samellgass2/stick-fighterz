@@ -7,6 +7,7 @@ from objects.event_trackers import MainMenuEventHandler
 
 ### ~~~ ### ~~~~~~ DEFINING OBJECT STATE CONSTANTS ~~~~~~ ### ~~~ ###
 
+# TODO: MAKE A GENERATOR FOR THESE IN THE FUTURE BEFORE MAKING THIS FORKABLE
 
 # ~~~~~~~~~~~~~ MAIN MENU ~~~~~~~~~~ #
 MENU_BGRND = RenderedObject(pg.shapes.Rectangle(0,0, width=NUM_COLUMNS*TILE_SIZE, height=NUM_ROWS*TILE_SIZE, color=(255,255,255)), "menu background") #bgrnd size = size of da window
