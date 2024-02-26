@@ -6,8 +6,8 @@ REFRESH_RATE_HERTZ = 60
 
 # Define the game world as an N x M grid of tiles of size S
 TILE_SIZE = 1 
-NUM_COLUMNS = 1000
-NUM_ROWS = 750
+NUM_COLUMNS = 1400
+NUM_ROWS = 1000
 
 BOOT_MODE = "test"
 
@@ -41,6 +41,13 @@ TWO_PLAYER_TEXT = "TWO PLAYER"
 BACK_TEXT = "BACK"
 
 
+# ~~~~~~~~~~~~~ CHARACTER CONSTANTS ~~~~~~~~~ #
+ARM_WIDTH = 1 #8 * TILE_SIZE
+LEG_WIDTH = 1 #8 * TILE_SIZE
+TORSO_WIDTH = 1 #15 * TILE_SIZE
+
+LEG_MAX_ANGLE = 135
+LEG_MIN_ANGLE = 45
 
 
 ### ~~~ ### ~~~~~~ GAMEPLAY / EVENT HANDLER CONSTANTS ~~~~~~ ### ~~~ ###

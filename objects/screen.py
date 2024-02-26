@@ -31,7 +31,7 @@ class Textures:
         # Assign textures to correct batch (TODO: see if we always need to do this or if it should be in an UPDATE before RENDER step)
         for level in range(levels):
             for rendered_object in self.get_textures_by_level(level):
-                rendered_object.getSprite().draw()
+                rendered_object.draw()
                 #rendered_object.setBatch(self.getBatches(level)) TODO: if it gets much more demanding,
                 # do batching and fix the garbage collector
                 
@@ -53,8 +53,11 @@ class Screen:
     def getTextures(self) -> Textures:
         return self._textures
 
-    def render(self):
+    def render(self, dynamicElements: "list[RenderedObject]"):
         self.getTextures().render() 
+        for element in dynamicElements:
+            element.render()
+
 
 
 class MainMenu(Screen): 
@@ -63,7 +66,19 @@ class MainMenu(Screen):
     def __init__(self, menuTextures: Textures):
         super().__init__(menuTextures)
 
-    def render(self):
+    def render(self, dynamicElements=None):
         # TODO: put any main menu specific render rules here, e.g. a beginning animation
         self.getTextures().render()
+
+
+class BattleStage(Screen):
+    """Generic battle screen"""
+    def __init__(self, allTextures):
+        super().__init__(allTextures)
+
+    def render(self, dynamicElements):
+        # TODO: handle dynamic effects here
+        self.getTextures().render()
+        for element in dynamicElements:
+            element.render()
 

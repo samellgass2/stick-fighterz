@@ -19,19 +19,25 @@ class GameState:
         # 1. Must account for any player movements that have occurred 
 
         # TODO: handle keys
-        current_pressed_keys = self.getEventTracker().getCurrentKeyMap()
+        #current_pressed_keys = self.getEventTracker().getCurrentKeyMap()
+        self.getEventTracker().processKeyMap()
+
+        # Handle keys for dynamic elements (walking / attacking / etc.)
+        for dynamicObj in self.getEventTracker().getDynamicElements():
+            dynamicObj.animate(self.getEventTracker().getCurrentKeyMap())
 
         # TODO: handle mice 
         for mouseLocation in self.getEventTracker().getMouseClickQueue():
             settingsChanges = self.getEventTracker().updateMouseClick(mouseLocation, self)
-            if settingsChanges.get("response",""):
+            if settingsChanges and settingsChanges.get("response",""):
                 print(settingsChanges)
+                # Clear action queue after an action changes screen state
+                self.getEventTracker().clearMouseClickQueue()
                 self.handleSettingsChange(settingsChanges)
 
+        # Clear action queue regardless after processing
         self.getEventTracker().clearMouseClickQueue()
 
-
-        # TODO: handle animations 
 
         # TODO: handle state changes (?) how will we switch menus? maybe leave a "Transformer" object to tell you where to go next
         
@@ -60,7 +66,7 @@ class GameState:
         self._eventTracker = eventTracker
 
     def renderScreen(self):
-        return self.getScreen().render()
+        return self.getScreen().render(self.getEventTracker().getDynamicElements())
     
     def isKeyboardLocked(self) -> bool:
         return self._keyboardLocked 

@@ -17,10 +17,16 @@ MAIN_MENU_HANDLER = MainMenuEventHandler(MAIN_MENU_TEXTURE_MAP, MAIN_MENU_EVENT_
 
 START_MENU_HANDLER = MainMenuEventHandler(START_MENU_TEXTURE_MAP, START_MENU_EVENT_HANDLERS)
 
-all_handlers = [MAIN_MENU_HANDLER, START_MENU_HANDLER]
+STAGE_SELECT_HANDLER = MainMenuEventHandler(STAGE_SELECT_TEXTURE_MAP, STAGE_SELECT_EVENT_HANDLERS)
+
+STAGE_ONE_HANDLER = SinglePlayerBattleStageEventHandler(STAGE_ONE_TEXTURE_MAP, STAGE_ONE_EVENT_HANDLERS, STAGE_ONE_DYNAMIC_OBJECTS)
+
+all_handlers = [MAIN_MENU_HANDLER, START_MENU_HANDLER, STAGE_SELECT_HANDLER, STAGE_ONE_HANDLER]
 str_to_handler = {
     "MAIN" : MAIN_MENU_HANDLER, 
-    "START" : START_MENU_HANDLER
+    "START" : START_MENU_HANDLER,
+    "STAGE SELECT" : STAGE_SELECT_HANDLER, 
+    "STAGE ONE" : STAGE_ONE_HANDLER
 }
 
 ### ~~~ ### ~~~~~~ SETUP ~~~~~~ ### ~~~ ###
@@ -45,12 +51,12 @@ def on_draw():
 @window.event
 def on_key_press(symbol: pg.window.key, modifiers):
     # TODO: use "press" to set player heading for continuous motion in update loop
-    GAME_STATE.handleKeyboardEvent(symbol, False)
+    GAME_STATE.handleKeyboardEvent(symbol, True)
 
 @window.event 
 def on_key_release(symbol: pg.window.key, modifiers):
     # TODO: use "release" to stop player heading for continuous motion in update loop, AND to handle key clicks
-    GAME_STATE.handleKeyboardEvent(symbol, True)
+    GAME_STATE.handleKeyboardEvent(symbol, False)
 
 @window.event
 def on_mouse_release(x, y, button, modifiers):
